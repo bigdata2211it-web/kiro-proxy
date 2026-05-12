@@ -85,7 +85,7 @@ const DB_PATH = process.env.KIRO_DB_PATH || (() => {
 
 function kiroOsName() {
   if (process.platform === "win32") return "windows";
-  if (process.platform === "darwin") return "mac";
+  if (process.platform === "darwin") return "macos";
   return "linux";
 }
 
