@@ -259,7 +259,9 @@ function openaiToKiro(body, overrideModel, instructionsHeader) {
       }
       pendingAssistantMessage = assistantMsg;
     } else if (msg.role === "tool") {
-      pendingToolResults.push({ toolUseId: normalizeToolUseId(msg.tool_call_id), content: [{ json: typeof msg.content === "string" ? tryParseJson(msg.content) : msg.content }], status: "success" });
+      var _tr = typeof msg.content === "string" ? tryParseJson(msg.content) : msg.content;
+      if (Array.isArray(_tr)) _tr = { result: _tr };
+      pendingToolResults.push({ toolUseId: normalizeToolUseId(msg.tool_call_id), content: [{ json: _tr }], status: "success" });
     }
   }
   if (pendingAssistantMessage) { history.push({ assistantResponseMessage: pendingAssistantMessage }); pendingAssistantMessage = null; }
